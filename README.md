@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Para arrancar el proyecto hay que instalar y arrancar Postgresql mediante los siguientes comandos en la consola:
 
-Things you may want to cover:
+       sudo apt install postgresql libpq-dev
 
-* Ruby version
+       sudo systemctl start postgresql.service
 
-* System dependencies
+Si a la hora de arrancar la db te da algún problema, yo lo subsané con los siguientes comandos:
 
-* Configuration
+       sudo -b unshare --pid --fork --mount-proc /lib/systemd/systemd --system-unit=basic.target
 
-* Database creation
+       sudo -E nsenter --all -t $(pgrep -xo systemd) runuser -P -l $USER -c "exec $SHELL"
+       
+Después vuelves a arrancar la db y listo :)
 
-* Database initialization
+Para apagar la db se hace mediante el siguiente comando:
 
-* How to run the test suite
+       sudo systemctl enable postgresql.service
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * ...
